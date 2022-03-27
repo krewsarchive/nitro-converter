@@ -10,28 +10,28 @@ The simplest way to set your configuration is by changing the `external.variable
 
 You may set any of the urls to a local path on your system or a remote url. A local path is recommended as the tool will run a lot quicker for downloading.
 
-| key                            | value                                                                                |
-| ------------------------------ | ------------------------------------------------------------------------------------ |
-| output.folder                  | The folder where converted assets will be saved to                                   |
-| flash.client.url               | The base url where figures/pets/effects are stored, eg https://url/gordon/           |
-| furnidata.load.url             | The url to your furnidata, can be XML or JSON, eg https://url/gamedata/furnidata.xml |
-| productdata.load.url           | The url to your productdata.txt, eg https://url/gamedata/productdata.txt             |
-| figuremap.load.url             | The url to your figure map, can be XML or JSON, eg https://url/gordon/figuremap.xml  |
-| effectmap.load.url             | The url to your effect map, can be XML or JSON, eg https://url/gordon/effectmap.xml  |
-| dynamic.download.pet.url       | The full url where pets are stored, eg https://url/gordon/%className%.swf            |
-| dynamic.download.figure.url    | The full url where figures are stored, eg https://url/gordon/%className%.swf         |
-| dynamic.download.effect.url    | The full url where effects are stored, eg https://url/gordon/%className%.swf         |
-| flash.dynamic.download.url     | The base url where furniture is stored, eg https://url/dcr/hof_furni/                |
-| dynamic.download.furniture.url | The full url where furniture is stored, eg https://url/dcr/hof_furni/%className%.swf |
-| external.variables.url         | The url to your external variables, eg https://url/gamedata/external_variables.txt   |
-| external.texts.url             | The url to your external texts, eg https://url/gamedata/external_texts.txt           |
-| convert.productdata            | Either `0` to skip or `1` to run                                                     |
-| convert.externaltexts          | Either `0` to skip or `1` to run                                                     |
-| convert.figure                 | Either `0` to skip or `1` to run                                                     |
-| convert.figuredata             | Either `0` to skip or `1` to run                                                     |
-| convert.effect                 | Either `0` to skip or `1` to run                                                     |
-| convert.furniture              | Either `0` to skip or `1` to run                                                     |
-| convert.pet                    | Either `0` to skip or `1` to run                                                     |
+| key                            | value                                                                                        |
+| ------------------------------ | -------------------------------------------------------------------------------------------- |
+| output.folder                  | The folder where converted assets will be saved to                                           |
+| flash.client.url               | The base url where figures/pets/effects are stored, eg https://url/gordon/                   |
+| furnidata.load.url             | The url to your furnidata, can be XML or JSON, eg https://url/gamedata/furnidata.xml         |
+| productdata.load.url           | The url to your productdata.txt, eg https://url/gamedata/productdata.txt                     |
+| figuremap.load.url             | The url to your figure map, can be XML or JSON, eg https://url/gordon/figuremap.xml          |
+| effectmap.load.url             | The url to your effect map, can be XML or JSON, eg https://url/gordon/effectmap.xml          |
+| dynamic.download.pet.url       | The full url where pets are stored, eg https://url/gordon/%className%.swf                    |
+| dynamic.download.figure.url    | The full url where figures are stored, eg https://url/gordon/%className%.swf                 |
+| dynamic.download.effect.url    | The full url where effects are stored, eg https://url/gordon/%className%.swf                 |
+| flash.dynamic.download.url     | The base url where furniture is stored, eg https://url/dcr/hof_furni/                        |
+| dynamic.download.furniture.url | The full url where furniture is stored, eg https://url/dcr/hof_furni/%className%.swf         |
+| external.variables.url         | The url to your external variables, eg https://url/gamedata/external_variables.txt           |
+| external.texts.urls            | The urls to your external texts and overrides, eg https://url/gamedata/external_texts.txt    |
+| convert.productdata            | Either `false` to skip or `true` to run                                                      |
+| convert.externaltexts          | Either `false` to skip or `true` to run                                                      |
+| convert.figure                 | Either `false` to skip or `true` to run                                                      |
+| convert.figuredata             | Either `false` to skip or `true` to run                                                      |
+| convert.effect                 | Either `false` to skip or `true` to run                                                      |
+| convert.furniture              | Either `false` to skip or `true` to run                                                      |
+| convert.pet                    | Either `false` to skip or `true` to run                                                      |
 
 ## Running the converter
 

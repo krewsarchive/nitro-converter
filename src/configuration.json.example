@@ -1,4 +1,5 @@
 {
+  "output.path": "",
   "flash.client.url": "",
   "furnidata.load.url": "",
   "productdata.load.url": "",
@@ -11,11 +12,11 @@
   "flash.dynamic.download.url": "",
   "dynamic.download.furniture.url": "${flash.dynamic.download.url}%revision%/%className%.swf",
   "external.variables.url": "https://www.habbo.com/gamedata/external_variables/1",
-  "external.texts.url": "${external.texts.txt}",
-  "convert.figure": "1",
-  "convert.effect": "1",
-  "convert.furniture": "1",
-  "convert.furniture.floor.only": "0",
-  "convert.furniture.wall.only": "0",
-  "convert.pet": "1"
+  "external.texts.urls": ["${external.texts.txt}"],
+  "convert.figure": true,
+  "convert.effect": true,
+  "convert.furniture": true,
+  "convert.furniture.floor.only": false,
+  "convert.furniture.wall.only": false,
+  "convert.pet": true
 }

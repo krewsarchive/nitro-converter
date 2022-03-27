@@ -17,12 +17,13 @@ export class EffectMapConverter implements IConverter
     {
         const now = Date.now();
         const spinner = ora('Preparing EffectMap').start();
-        const url = this._configuration.getValue('effectmap.load.url');
+        const url = this._configuration.getValue<string>('effectmap.load.url');
         const content = await FileUtilities.readFileAsString(url);
 
         this._effectMap = ((!content.startsWith('{')) ? await this.mapXML2JSON(await parseStringPromise(content.replace(/&/g,'&amp;'))) : JSON.parse(content));
 
-        const directory = await FileUtilities.getDirectory('./assets/gamedata');
+        const outputPath = (this._configuration.getValue<string>('output.path') || './assets/');
+        const directory = await FileUtilities.getDirectory(`${ outputPath }gamedata`);
         const path = directory.path + '/EffectMap.json';
 
         await writeFile(path, JSON.stringify(this._effectMap), 'utf8');

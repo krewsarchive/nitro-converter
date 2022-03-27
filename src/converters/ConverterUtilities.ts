@@ -21,17 +21,18 @@ export class ConverterUtilities
 
     public async downloadSwfTypes(): Promise<void>
     {
-        const floorOnly = (this._configuration.getBoolean('convert.furniture.floor.only') || false);
-        const wallOnly = (this._configuration.getBoolean('convert.furniture.wall.only') || false);
+        const floorOnly = (this._configuration.getValue<boolean>('convert.furniture.floor.only') || false);
+        const wallOnly = (this._configuration.getValue<boolean>('convert.furniture.wall.only') || false);
+        const outputPath = (this._configuration.getValue<string>('output.path') || './assets/');
 
         for(const downloadType of ConverterUtilities.DOWNLOAD_SWF_TYPES)
         {
-            if(!this._configuration.getBoolean(`convert.${ downloadType }`)) continue;
+            if(!this._configuration.getValue<boolean>(`convert.${ downloadType }`)) continue;
 
             const now = Date.now();
             const spinner = ora(`Preparing ${ downloadType }`).start();
             const downloadBase = this.getDownloadBaseUrl(downloadType);
-            const saveDirectory = await FileUtilities.getDirectory(`./assets/bundled/${ downloadType }`);
+            const saveDirectory = await FileUtilities.getDirectory(`${outputPath}bundled/${ downloadType }`);
             const classNamesWithRevisions = await this.getClassNamesWithRevision(downloadType, floorOnly, wallOnly);
             const classNames = Object.keys(classNamesWithRevisions);
 
@@ -91,13 +92,13 @@ export class ConverterUtilities
         switch(type)
         {
             case 'furniture':
-                return this._configuration.getValue('dynamic.download.furniture.url');
+                return this._configuration.getValue<string>('dynamic.download.furniture.url');
             case 'figure':
-                return this._configuration.getValue('dynamic.download.figure.url');
+                return this._configuration.getValue<string>('dynamic.download.figure.url');
             case 'effect':
-                return this._configuration.getValue('dynamic.download.effect.url');
+                return this._configuration.getValue<string>('dynamic.download.effect.url');
             case 'pet':
-                return this._configuration.getValue('dynamic.download.pet.url');
+                return this._configuration.getValue<string>('dynamic.download.pet.url');
         }
 
         return null;
@@ -115,7 +116,7 @@ export class ConverterUtilities
                 return await this._effectMapConverter.getClassNamesAndRevisions();
             case 'pet': {
                 const entries: { [index: string]: string } = {};
-                const classNames = this._configuration.getValue('pet.configuration').split(',');
+                const classNames = this._configuration.getValue<string>('pet.configuration').split(',');
 
                 for(const className of classNames) entries[className] = '-1';
 
@@ -130,8 +131,9 @@ export class ConverterUtilities
     {
         const now = Date.now();
         const spinner = ora('Preparing Extraction').start();
-        const extractBaseDirectory = await FileUtilities.getDirectory('./assets/extract');
-        const extractedBaseDirectory = await FileUtilities.getDirectory('./assets/extracted');
+        const outputPath = (this._configuration.getValue<string>('output.path') || './assets/');
+        const extractBaseDirectory = await FileUtilities.getDirectory(`${ outputPath }extract`);
+        const extractedBaseDirectory = await FileUtilities.getDirectory(`${ outputPath }extracted`);
 
         for await (const type of ConverterUtilities.BUNDLE_TYPES)
         {
@@ -183,8 +185,9 @@ export class ConverterUtilities
     {
         const now = Date.now();
         const spinner = ora('Preparing SWF Extraction').start();
-        const swfBaseDirectory = await FileUtilities.getDirectory('./assets/swf');
-        const bundledBaseDirectory = await FileUtilities.getDirectory('./assets/bundled');
+        const outputPath = (this._configuration.getValue<string>('output.path') || './assets/');
+        const swfBaseDirectory = await FileUtilities.getDirectory(`${ outputPath }swf`);
+        const bundledBaseDirectory = await FileUtilities.getDirectory(`${ outputPath }bundled`);
 
         for await (const type of ConverterUtilities.BUNDLE_TYPES)
         {
@@ -245,8 +248,9 @@ export class ConverterUtilities
     {
         const now = Date.now();
         const spinner = ora('Preparing Bundler').start();
-        const bundleBaseDirectory = await FileUtilities.getDirectory('./assets/extracted');
-        const bundledBaseDirectory = await FileUtilities.getDirectory('./assets/bundled');
+        const outputPath = (this._configuration.getValue<string>('output.path') || './assets/');
+        const bundleBaseDirectory = await FileUtilities.getDirectory(`${ outputPath }extracted`);
+        const bundledBaseDirectory = await FileUtilities.getDirectory(`${ outputPath }bundled`);
 
         for await (const type of ConverterUtilities.BUNDLE_TYPES)
         {

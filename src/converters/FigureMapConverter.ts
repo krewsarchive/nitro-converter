@@ -17,12 +17,13 @@ export class FigureMapConverter implements IConverter
     {
         const now = Date.now();
         const spinner = ora('Preparing FigureMap').start();
-        const url = this._configuration.getValue('figuremap.load.url');
+        const url = this._configuration.getValue<string>('figuremap.load.url');
         const content = await FileUtilities.readFileAsString(url);
 
         this._figureMap = ((!content.startsWith('{')) ? await this.mapXML2JSON(await parseStringPromise(content.replace(/&/g,'&amp;'))) : JSON.parse(content));
 
-        const directory = await FileUtilities.getDirectory('./assets/gamedata');
+        const outputPath = (this._configuration.getValue<string>('output.path') || './assets/');
+        const directory = await FileUtilities.getDirectory(`${ outputPath }gamedata`);
         const path = directory.path + '/FigureMap.json';
 
         await writeFile(path, JSON.stringify(this._figureMap), 'utf8');

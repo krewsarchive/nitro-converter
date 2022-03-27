@@ -5,11 +5,11 @@ import { FileUtilities } from '../utils';
 @singleton()
 export class Configuration
 {
-    private readonly _config: Map<string, string>;
+    private readonly _config: Map<string, any>;
 
     constructor()
     {
-        this._config = new Map<string, string>();
+        this._config = new Map<string, any>();
     }
 
     public async init(): Promise<void>
@@ -23,7 +23,7 @@ export class Configuration
 
     public async loadExternalVariables(): Promise<void>
     {
-        const url = this.getValue('external.variables.url');
+        const url = this.getValue<string>('external.variables.url');
 
         try
         {
@@ -101,7 +101,7 @@ export class Configuration
 
     public interpolate(value: string, regex: RegExp = null): string
     {
-        if(!value || (typeof value === 'object')) return value;
+        if(!value || (typeof value !== 'string')) return value;
         if(!regex) regex = new RegExp(/\${(.*?)}/g);
 
         const pieces = value.match(regex);
@@ -124,22 +124,15 @@ export class Configuration
         return value.replace('${', '').replace('}', '');
     }
 
-    public getValue(key: string, value: string = ''): string
+    public getValue<T>(key: string, value: any = ''): T
     {
         if(this._config.has(key)) return this._config.get(key);
 
-        return value;
+        return (value as T);
     }
 
-    public setValue(key: string, value: string): void
+    public setValue(key: string, value: any): void
     {
         this._config.set(key, value);
-    }
-
-    public getBoolean(key: string): boolean
-    {
-        const value = this.getValue(key);
-
-        return ((value === 'true') || (value === '1'));
     }
 }

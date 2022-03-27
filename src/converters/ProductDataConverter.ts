@@ -16,12 +16,13 @@ export class ProductDataConverter implements IConverter
     {
         const now = Date.now();
         const spinner = ora('Preparing ProductData').start();
-        const url = this._configuration.getValue('productdata.load.url');
+        const url = this._configuration.getValue<string>('productdata.load.url');
         const content = await FileUtilities.readFileAsString(url);
 
         this.productData = ((!content.startsWith('{')) ? await this.mapText2JSON(content) : JSON.parse(content));
 
-        const directory = await FileUtilities.getDirectory('./assets/gamedata');
+        const outputPath = (this._configuration.getValue<string>('output.path') || './assets/');
+        const directory = await FileUtilities.getDirectory(`${ outputPath }gamedata`);
         const path = directory.path + '/ProductData.json';
 
         await writeFile(path, JSON.stringify(this.productData), 'utf8');

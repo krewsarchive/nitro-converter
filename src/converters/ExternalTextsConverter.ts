@@ -6,7 +6,7 @@ import { Configuration, FileUtilities, IConverter, IExternalTexts } from '../com
 @singleton()
 export class ExternalTextsConverter implements IConverter
 {
-    public externalTexts: IExternalTexts = null;
+    public externalTexts: IExternalTexts = {};
 
     constructor(
         private readonly _configuration: Configuration)
@@ -16,12 +16,17 @@ export class ExternalTextsConverter implements IConverter
     {
         const now = Date.now();
         const spinner = ora('Preparing ExternalTexts').start();
-        const url = this._configuration.getValue('external.texts.url');
-        const content = await FileUtilities.readFileAsString(url);
+        const urls = this._configuration.getValue<string[]>('external.texts.urls');
 
-        this.externalTexts = ((!content.startsWith('{')) ? await this.mapText2JSON(content) : JSON.parse(content));
+        for(const url of urls)
+        {
+            const content = await FileUtilities.readFileAsString(url);
 
-        const directory = await FileUtilities.getDirectory('./assets/gamedata');
+            this.externalTexts = { ...this.externalTexts, ...((!content.startsWith('{')) ? await this.mapText2JSON(content) : JSON.parse(content)) };
+        }
+
+        const outputPath = (this._configuration.getValue<string>('output.path') || './assets/');
+        const directory = await FileUtilities.getDirectory(`${ outputPath }gamedata`);
         const path = directory.path + '/ExternalTexts.json';
 
         await writeFile(path, JSON.stringify(this.externalTexts), 'utf8');

@@ -17,12 +17,13 @@ export class FigureDataConverter implements IConverter
     {
         const now = Date.now();
         const spinner = ora('Preparing FigureData').start();
-        const url = this._configuration.getValue('figuredata.load.url');
+        const url = this._configuration.getValue<string>('figuredata.load.url');
         const content = await FileUtilities.readFileAsString(url);
 
         this.figureData = ((!content.startsWith('{')) ? await this.mapXML2JSON(await parseStringPromise(content.replace(/&/g,'&amp;'))) : JSON.parse(content));
 
-        const directory = await FileUtilities.getDirectory('./assets/gamedata');
+        const outputPath = (this._configuration.getValue<string>('output.path') || './assets/');
+        const directory = await FileUtilities.getDirectory(`${ outputPath }gamedata`);
         const path = directory.path + '/FigureData.json';
 
         await writeFile(path, JSON.stringify(this.figureData), 'utf8');
