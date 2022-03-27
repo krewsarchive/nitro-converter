@@ -1,5 +1,5 @@
 {
-  "output.path": "",
+  "output.path": "./assets/",
   "flash.client.url": "",
   "furnidata.load.url": "",
   "productdata.load.url": "",
