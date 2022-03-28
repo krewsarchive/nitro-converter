@@ -4,4 +4,5 @@ export * from './externaltexts';
 export * from './figuredata';
 export * from './figuremap';
 export * from './furnituredata';
+export * from './habboavataractions';
 export * from './productdata';

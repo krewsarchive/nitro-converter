@@ -8,6 +8,7 @@ import { ExternalTextsConverter } from './converters/ExternalTextsConverter';
 import { FigureDataConverter } from './converters/FigureDataConverter';
 import { FigureMapConverter } from './converters/FigureMapConverter';
 import { FurnitureDataConverter } from './converters/FurnitureDataConverter';
+import { HabboAvatarActionsConverter } from './converters/HabboAvatarActionsConverter';
 import { ProductDataConverter } from './converters/ProductDataConverter';
 
 (async () =>
@@ -21,7 +22,8 @@ import { ProductDataConverter } from './converters/ProductDataConverter';
         ProductDataConverter,
         ExternalTextsConverter,
         EffectMapConverter,
-        FigureMapConverter
+        FigureMapConverter,
+        HabboAvatarActionsConverter
     ];
 
     const bundle = (process.argv.indexOf('--bundle') >= 0);

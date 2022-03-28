@@ -6,6 +6,7 @@
   "figuredata.load.url": "https://www.habbo.com/gamedata/figuredata/1",
   "figuremap.load.url": "${flash.client.url}figuremap.xml",
   "effectmap.load.url": "${flash.client.url}effectmap.xml",
+  "habboavataractions.load.url": "${flash.client.url}HabboAvatarActions.xml",
   "dynamic.download.pet.url": "${flash.client.url}%className%.swf",
   "dynamic.download.figure.url": "${flash.client.url}%className%.swf",
   "dynamic.download.effect.url": "${flash.client.url}%className%.swf",
