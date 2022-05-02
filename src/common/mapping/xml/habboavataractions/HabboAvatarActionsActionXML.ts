@@ -26,7 +26,7 @@ export class HabboAvatarActionsActionXML
         if(attributes)
         {
             if(attributes.id !== undefined) this._id = attributes.id;
-            if(attributes.state !== undefined) this._state = attributes.state;
+            if(attributes.state !== undefined) this._state = (attributes.state as string).toLowerCase();
             if(attributes.precedence !== undefined) this._precedence = parseInt(attributes.precedence);
             if(attributes.main !== undefined) this._main = attributes.main === '1';
             if(attributes.isdefault !== undefined) this._isDefault = attributes.isdefault === '1';
